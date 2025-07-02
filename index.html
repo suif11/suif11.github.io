@@ -1,1 +1,357 @@
-hello i am yzr
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>闫卓然的个人博客 - 中南大学</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* 全局样式 */
+        body {
+            font-family: 'Noto Sans SC', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 头部导航 */
+        header {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+            font-weight: 700;
+        }
+
+        header h1 a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #3498db;
+        }
+
+        /* 英雄区域 (Hero Section) */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('https://via.placeholder.com/1500x500?text=Zhuoran+Yan+Blog+Hero') no-repeat center center/cover; /* 替换为您的背景图 */
+            color: #fff;
+            text-align: center;
+            padding: 100px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+
+        .hero h2 {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            max-width: 700px;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .hero .btn {
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .hero .btn:hover {
+            background-color: #2980b9;
+        }
+
+        /* 内容区通用样式 */
+        section {
+            padding: 60px 0;
+            background-color: #fff;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 40px;
+        }
+
+        /* 关于我 */
+        .about-me {
+            text-align: center;
+        }
+
+        .about-me img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 5px solid #3498db;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .about-me p {
+            max-width: 700px;
+            margin: 0 auto 20px;
+            font-size: 1.1em;
+        }
+
+        /* 文章列表 */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .article-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+
+        .article-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .article-card-content {
+            padding: 20px;
+        }
+
+        .article-card-content h3 {
+            margin-top: 0;
+            font-size: 1.4em;
+            color: #2c3e50;
+        }
+
+        .article-card-content p {
+            font-size: 0.95em;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .article-card-content .read-more {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .article-card-content .read-more:hover {
+            text-decoration: underline;
+        }
+
+        /* 联系方式 */
+        .contact-info ul {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        .contact-info ul li {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .contact-info ul li strong {
+            color: #2c3e50;
+        }
+
+        .contact-info ul li a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .contact-info ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* 页脚 */
+        footer {
+            background-color: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 25px 0;
+            font-size: 0.9em;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul li {
+                margin: 0 10px;
+            }
+
+            .hero h2 {
+                font-size: 2.5em;
+            }
+
+            .hero p {
+                font-size: 1.2em;
+            }
+
+            section {
+                padding: 40px 0;
+            }
+
+            section h2 {
+                font-size: 2em;
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="#">闫卓然的博客</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="#about">关于我</a></li>
+                    <li><a href="#articles">文章</a></li>
+                    <li><a href="#contact">联系我</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>欢迎来到我的个人博客</h2>
+            <p>我是中南大学的闫卓然，在这里分享我的学习笔记、项目经验和生活感悟。</p>
+            <a href="#articles" class="btn">探索文章</a>
+        </div>
+    </section>
+
+    <section id="about" class="about-me container">
+        <h2>关于我</h2>
+        <img src="https://via.placeholder.com/300" alt="闫卓然的头像"> <p>
+            我是中南大学的一名学生。
+            我的博客是记录我成长轨迹的地方，希望能与志同道合的朋友们交流学习。
+            在这里，我将分享我在学术研究、编程实践以及个人发展中的点滴心得。
+        </p>
+        <p>
+            如果您对我的内容感兴趣，或者希望与我交流，欢迎通过下方联系方式与我取得联系。
+        </p>
+    </section>
+
+    <section id="articles" class="container">
+        <h2>最新文章</h2>
+        <div class="articles-grid">
+            <div class="article-card">
+                <img src="https://via.placeholder.com/400x200?text=Article+Image+1" alt="文章配图">
+                <div class="article-card-content">
+                    <h3>我的第一个机器学习项目</h3>
+                    <p>分享我在完成第一个机器学习项目时遇到的挑战和学到的经验，从数据预处理到模型部署的完整流程。</p>
+                    <a href="#" class="read-more">阅读更多 &rarr;</a>
+                </div>
+            </div>
+
+            <div class="article-card">
+                <img src="https://via.placeholder.com/400x200?text=Article+Image+2" alt="文章配图">
+                <div class="article-card-content">
+                    <h3>中南大学的学习生活点滴</h3>
+                    <p>记录我在中南大学的日常学习生活，包括课堂趣事、社团活动和校园美景。</p>
+                    <a href="#" class="read-more">阅读更多 &rarr;</a>
+                </div>
+            </div>
+
+            <div class="article-card">
+                <img src="https://via.placeholder.com/400x200?text=Article+Image+3" alt="文章配图">
+                <div class="article-card-content">
+                    <h3>如何高效学习Python编程</h3>
+                    <p>总结了一些我个人认为非常有效的Python学习方法和资源推荐，帮助初学者快速入门。</p>
+                    <a href="#" class="read-more">阅读更多 &rarr;</a>
+                </div>
+            </div>
+
+            </div>
+    </section>
+
+    <section id="contact" class="contact-info container">
+        <h2>联系我</h2>
+        <p>如果您有任何问题、建议，或者希望合作，欢迎通过以下方式与我取得联系：</p>
+        <ul>
+            <li><strong>邮箱:</strong> <a href="mailto:your.email@example.com">your.email@example.com</a></li> <li><strong>GitHub:</strong> <a href="https://github.com/your-github-username" target="_blank">github.com/your-github-username</a></li> <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/your-linkedin-profile" target="_blank">linkedin.com/in/your-linkedin-profile</a></li> <li><strong>微信/QQ:</strong> (如果愿意分享，请在此处添加)</li>
+        </ul>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 闫卓然. All rights reserved.</p>
+            <p>基于 ❤️ 设计于 中南大学</p>
+        </div>
+    </footer>
+</body>
+</html>
