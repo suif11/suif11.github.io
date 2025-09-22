@@ -1,0 +1,224 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>068更多的二维动态规划题目 | 言和和和</title><meta name="author" content="yzr"><meta name="copyright" content="yzr"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="题目一 12345678910111213141516171819202122232425262728293031package class068;&#x2F;&#x2F; 不同的子序列&#x2F;&#x2F; 给你两个字符串s和t ，统计并返回在s的子序列中t出现的个数&#x2F;&#x2F; 答案对 1000000007 取模&#x2F;&#x2F; 测试链接 : https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;distinct-subsequences&#x2F;pub">
+<meta property="og:type" content="article">
+<meta property="og:title" content="068更多的二维动态规划题目">
+<meta property="og:url" content="http://example.com/2025/09/22/068%E6%9B%B4%E5%A4%9A%E7%9A%84%E4%BA%8C%E7%BB%B4%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E9%A2%98%E7%9B%AE/index.html">
+<meta property="og:site_name" content="言和和和">
+<meta property="og:description" content="题目一 12345678910111213141516171819202122232425262728293031package class068;&#x2F;&#x2F; 不同的子序列&#x2F;&#x2F; 给你两个字符串s和t ，统计并返回在s的子序列中t出现的个数&#x2F;&#x2F; 答案对 1000000007 取模&#x2F;&#x2F; 测试链接 : https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;distinct-subsequences&#x2F;pub">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/liang.jpg">
+<meta property="article:published_time" content="2025-09-22T06:51:27.000Z">
+<meta property="article:modified_time" content="2025-09-22T07:10:42.799Z">
+<meta property="article:author" content="yzr">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="原创">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/liang.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "068更多的二维动态规划题目",
+  "url": "http://example.com/2025/09/22/068%E6%9B%B4%E5%A4%9A%E7%9A%84%E4%BA%8C%E7%BB%B4%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E9%A2%98%E7%9B%AE/",
+  "image": "http://example.com/img/liang.jpg",
+  "datePublished": "2025-09-22T06:51:27.000Z",
+  "dateModified": "2025-09-22T07:10:42.799Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "yzr",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/09/22/068%E6%9B%B4%E5%A4%9A%E7%9A%84%E4%BA%8C%E7%BB%B4%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E9%A2%98%E7%9B%AE/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '068更多的二维动态规划题目',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">言和和和</span></a><a class="nav-page-title" href="/"><span class="site-name">068更多的二维动态规划题目</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">068更多的二维动态规划题目</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-22T06:51:27.000Z" title="发表于 2025-09-22 14:51:27">2025-09-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-22T07:10:42.799Z" title="更新于 2025-09-22 15:10:42">2025-09-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/%E5%B7%A6%E7%A8%8B%E4%BA%91/">左程云</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>题目一</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> class068;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 不同的子序列</span></span><br><span class="line"><span class="comment">// 给你两个字符串s和t ，统计并返回在s的子序列中t出现的个数</span></span><br><span class="line"><span class="comment">// 答案对 1000000007 取模</span></span><br><span class="line"><span class="comment">// 测试链接 : https://leetcode.cn/problems/distinct-subsequences/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Code01_DistinctSubsequences</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 已经展示太多次从递归到动态规划了</span></span><br><span class="line">	<span class="comment">// 直接写动态规划吧</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">numDistinct1</span><span class="params">(String str, String target)</span> &#123;</span><br><span class="line">		<span class="type">char</span>[] s = str.toCharArray();</span><br><span class="line">		<span class="type">char</span>[] t = target.toCharArray();</span><br><span class="line">		<span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> s.length;</span><br><span class="line">		<span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> t.length;</span><br><span class="line">		<span class="comment">// dp[i][j] :</span></span><br><span class="line">		<span class="comment">// s[前缀长度为i]的所有子序列中，有多少个子序列等于t[前缀长度为j]</span></span><br><span class="line">		<span class="type">int</span>[][] dp = <span class="keyword">new</span> <span class="title class_">int</span>[n + <span class="number">1</span>][m + <span class="number">1</span>];</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= n; i++) &#123;</span><br><span class="line">			dp[i][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= m; j++) &#123;</span><br><span class="line">				dp[i][j] = dp[i - <span class="number">1</span>][j];</span><br><span class="line">				<span class="keyword">if</span> (s[i - <span class="number">1</span>] == t[j - <span class="number">1</span>]) &#123;</span><br><span class="line">					dp[i][j] += dp[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> dp[n][m];</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>题目二</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> class068;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 编辑距离</span></span><br><span class="line"><span class="comment">// 给你两个单词 word1 和 word2</span></span><br><span class="line"><span class="comment">// 请返回将 word1 转换成 word2 所使用的最少代价</span></span><br><span class="line"><span class="comment">// 你可以对一个单词进行如下三种操作：</span></span><br><span class="line"><span class="comment">// 插入一个字符，代价a</span></span><br><span class="line"><span class="comment">// 删除一个字符，代价b</span></span><br><span class="line"><span class="comment">// 替换一个字符，代价c</span></span><br><span class="line"><span class="comment">// 测试链接 : https://leetcode.cn/problems/edit-distance/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Code02_EditDistance</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 已经展示太多次从递归到动态规划了</span></span><br><span class="line">	<span class="comment">// 直接写动态规划吧</span></span><br><span class="line">	<span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minDistance</span><span class="params">(String word1, String word2)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> editDistance2(word1, word2, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 原初尝试版</span></span><br><span class="line">	<span class="comment">// a : str1中插入1个字符的代价</span></span><br><span class="line">	<span class="comment">// b : str1中删除1个字符的代价</span></span><br><span class="line">	<span class="comment">// c : str1中改变1个字符的代价</span></span><br><span class="line">	<span class="comment">// 返回从str1转化成str2的最低代价</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">editDistance1</span><span class="params">(String str1, String str2, <span class="type">int</span> a, <span class="type">int</span> b, <span class="type">int</span> c)</span> &#123;</span><br><span class="line">		<span class="type">char</span>[] s1 = str1.toCharArray();</span><br><span class="line">		<span class="type">char</span>[] s2 = str2.toCharArray();</span><br><span class="line">		<span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> s1.length;</span><br><span class="line">		<span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> s2.length;</span><br><span class="line">		<span class="comment">// dp[i][j] :</span></span><br><span class="line">		<span class="comment">// s1[前缀长度为i]想变成s2[前缀长度为j]，至少付出多少代价</span></span><br><span class="line">		<span class="type">int</span>[][] dp = <span class="keyword">new</span> <span class="title class_">int</span>[n + <span class="number">1</span>][m + <span class="number">1</span>];</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">			dp[i][<span class="number">0</span>] = i * b;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= m; j++) &#123;</span><br><span class="line">			dp[<span class="number">0</span>][j] = j * a;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= m; j++) &#123;</span><br><span class="line">				<span class="type">int</span> <span class="variable">p1</span> <span class="operator">=</span> Integer.MAX_VALUE;</span><br><span class="line">				<span class="keyword">if</span> (s1[i - <span class="number">1</span>] == s2[j - <span class="number">1</span>]) &#123;</span><br><span class="line">					p1 = dp[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="type">int</span> <span class="variable">p2</span> <span class="operator">=</span> Integer.MAX_VALUE;</span><br><span class="line">				<span class="keyword">if</span> (s1[i - <span class="number">1</span>] != s2[j - <span class="number">1</span>]) &#123;</span><br><span class="line">					p2 = dp[i - <span class="number">1</span>][j - <span class="number">1</span>] + c;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="type">int</span> <span class="variable">p3</span> <span class="operator">=</span> dp[i][j - <span class="number">1</span>] + a;</span><br><span class="line">				<span class="type">int</span> <span class="variable">p4</span> <span class="operator">=</span> dp[i - <span class="number">1</span>][j] + b;</span><br><span class="line">				dp[i][j] = Math.min(Math.min(p1, p2), Math.min(p3, p4));</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> dp[n][m];</span><br></pre></td></tr></table></figure>
+<p>题目三</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> class068;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 交错字符串</span></span><br><span class="line"><span class="comment">// 给定三个字符串 s1、s2、s3</span></span><br><span class="line"><span class="comment">// 请帮忙验证s3是否由s1和s2交错组成</span></span><br><span class="line"><span class="comment">// 测试链接 : https://leetcode.cn/problems/interleaving-string/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Code03_InterleavingString</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 已经展示太多次从递归到动态规划了</span></span><br><span class="line">	<span class="comment">// 直接写动态规划吧</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isInterleave1</span><span class="params">(String str1, String str2, String str3)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (str1.length() + str2.length() != str3.length()) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="type">char</span>[] s1 = str1.toCharArray();</span><br><span class="line">		<span class="type">char</span>[] s2 = str2.toCharArray();</span><br><span class="line">		<span class="type">char</span>[] s3 = str3.toCharArray();</span><br><span class="line">		<span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> s1.length;</span><br><span class="line">		<span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> s2.length;</span><br><span class="line">		<span class="comment">// dp[i][j]:</span></span><br><span class="line">		<span class="comment">// s1[前缀长度为i]和s2[前缀长度为j]，能否交错组成出s3[前缀长度为i+j]</span></span><br><span class="line">		<span class="type">boolean</span>[][] dp = <span class="keyword">new</span> <span class="title class_">boolean</span>[n + <span class="number">1</span>][m + <span class="number">1</span>];</span><br><span class="line">		dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (s1[i - <span class="number">1</span>] != s3[i - <span class="number">1</span>]) &#123;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			dp[i][<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= m; j++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (s2[j - <span class="number">1</span>] != s3[j - <span class="number">1</span>]) &#123;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			dp[<span class="number">0</span>][j] = <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= m; j++) &#123;</span><br><span class="line">				dp[i][j] = (s1[i - <span class="number">1</span>] == s3[i + j - <span class="number">1</span>] &amp;&amp; dp[i - <span class="number">1</span>][j]) || (s2[j - <span class="number">1</span>] == s3[i + j - <span class="number">1</span>] &amp;&amp; dp[i][j - <span class="number">1</span>]);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> dp[n][m];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">yzr</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/09/22/068%E6%9B%B4%E5%A4%9A%E7%9A%84%E4%BA%8C%E7%BB%B4%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E9%A2%98%E7%9B%AE/">http://example.com/2025/09/22/068%E6%9B%B4%E5%A4%9A%E7%9A%84%E4%BA%8C%E7%BB%B4%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E9%A2%98%E7%9B%AE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">言和和和</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a><a class="post-meta__tags" href="/tags/%E5%8E%9F%E5%88%9B/">原创</a></div><div class="post-share"><div class="social-share" data-image="/img/liang.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/09/18/067%E4%BB%8E%E9%80%92%E5%BD%92%E5%85%A5%E6%89%8B%E4%BA%8C%E7%BB%B4%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="067从递归入手二维动态规划"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">067从递归入手二维动态规划</div></div><div class="info-2"><div class="info-item-1">递归到二维动态规划 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112题目一package class067;// 最小路径和// 给定一个包含非负整数的 m x n 网格 grid// 请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。// 说明：每次只能向下或者向右移动一步。// 测试链接 : https://leetcode.cn/problems/minimum-path-sum/public class Code01_MinimumPathSum &#123;	// 暴力递归	public static int minPathSum1(int[][] grid...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/09/14/019%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%9A%84%E5%A4%84%E7%90%86/" title="左程云019输入输出的处理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-14</div><div class="info-item-2">左程云019输入输出的处理</div></div><div class="info-2"><div class="info-item-1">ACM 风格的 I&#x2F;O 与内存管理在算法竞赛（ACM）中，程序的执行效率至关重要。除了算法复杂度，I&#x2F;O 和内存管理的开销也对性能有着决定性的影响。ACM 风格的编程追求极致的效率，其核心在于 I&#x2F;O 缓冲 和 静态内存分配。  高效 I&#x2F;O：BufferedReader 与 Scanner 的对比在 Java 中，Scanner 类提供了一个便利的接口，但其内部实现涉及频繁的底层 I&#x2F;O 操作。每次调用 Scanner.nextInt() 或 Scanner.next()，都可能触发一次对系统 I&#x2F;O 流的访问，这带来了显著的性能开销。  相比之下，BufferedReader 采用了一种缓冲机制来优化 I&#x2F;O 性能。它在内存中维护一个缓冲区（默认大小为 8KB），并一次性从底层数据源（如 System.in）读取一大块数据。后续的读取请求都在这个内存缓冲区内完成，从而显著减少了对底层 I&#x2F;O 设备的访问次数。 同样，为了优化输出，ACM 风格的程序会使用 PrintWriter 或 Buffere...</div></div></div></a><a class="pagination-related" href="/2025/09/14/025%E5%A0%86%E7%BB%93%E6%9E%84%E5%92%8C%E5%A0%86%E6%8E%92%E5%BA%8F/" title="025堆结构和堆排序"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-14</div><div class="info-item-2">025堆结构和堆排序</div></div><div class="info-2"><div class="info-item-1">堆（Heap）是什么？堆是一种特殊的完全二叉树，它满足以下两个关键性质： 结构性：它必须是一棵完全二叉树，这意味着除了最后一层，其他所有层都是完全满的，并且最后一层的节点都靠左排列。这种结构使得它可以用一个简单的数组来高效存储。堆序性：每个节点的值都必须满足特定的关系。大顶堆（Max-Heap）：每个父节点的值都大于或等于其子节点的值。小顶堆（Min-Heap）：每个父节点的值都小于或等于其子节点的值。 在数组中，如果节点从索引 1 开始，那么父子关系可以通过简单的公式计算： 父节点：i&#x2F;2左孩子：2i右孩子：2i+1 时间复杂度Onlogn  用常量增倍法把n个数建立堆 上限是n个数依次进入 第n个高度logn 所以上限nlogn假设2n个数 是否以这个做下限  后n个数高度大于logn 为什么是上限也是下限 说明只能是它 输出前m个小的数 import java.util.Scanner;  public class Main &#123;     // N: 堆的最大容量     // h: 存储堆元素的数组，索引从1开始     // size: 堆中当前元素的...</div></div></div></a><a class="pagination-related" href="/2025/09/15/056%E5%B9%B6%E6%9F%A5%E9%9B%86/" title="056并查集"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-15</div><div class="info-item-2">056并查集</div></div><div class="info-2"><div class="info-item-1">1.一开始元素拥有自己的集合，在自己的集合里只有这个元素自己2.find(i):查找i所在集合的代表元素，代表元素来代表i所在的集合3.boolean isSameSet(a,b):判断a,b在不在一个集合里4.void union(a,b):a所在集合所有元素和b所在集合所有元素 合并成一个集合5.各种操作单次调用的均摊时间复杂度O(1) find一直往上找 一直找到不能再往上的优化一 union小的去挂大的优化二 扁平化(路径压缩)比如说 2-3 3-4 4-5find(2)的时候 在找父节点的过程中  我们把沿途的都给直接挂到5那越调用速度越快，挺好 father 和 size的改变只有代表节点的size信息有用  也就是最上方的节点对吧father指向父节点 import java.io.*;  public class Main &#123;     // n 和 m 为题目给定的总数和操作数     static int n, m;     // father[i] 存储 i 的父节点     static int[] father;     // size[i] 存...</div></div></div></a><a class="pagination-related" href="/2025/09/14/059%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" title="059拓扑排序"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-14</div><div class="info-item-2">059拓扑排序</div></div><div class="info-2"><div class="info-item-1"> 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768import java.util.ArrayList;class Solution &#123;/*** 找到所有课程的正确学习顺序。* 这个问题可以建模为一个有向无环图（DAG）的拓扑排序问题。** @param numCourses 课程总数* @param prerequisites 先决条件数组，prerequisites[i] = [ai, bi] 表示学习课程 ai 之前必须先学习课程 bi* @return 课程的有效学习顺序，如果不存在（图中存在环），则返回一个空数组*/public int[] findOrder(int numCourses, int[][] prerequisites) &#123;// 1. 建立邻接表（图）和入度表ArrayList&lt;ArrayList&lt;Integer&gt;...</div></div></div></a><a class="pagination-related" href="/2025/09/15/061%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" title="061最小生成树"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-15</div><div class="info-item-2">061最小生成树</div></div><div class="info-2"><div class="info-item-1">最小生成树:在 无向带权图 中选择一些边，在保证连通性的情况下，边的总权值最小最小生成树可能不只一棵，只要保证边的总权值最小，就是正确的最小生成树。如果无向带权图有n个点，那么最小生成树一定有n-1条边 Kruskal算法(最常用)1 把所有的边，根据权值从小到大排序，从权值小的边开始考虑2 如果连接当前的边不会形成环，就选择3 如果连接当前的边会形成环，就不选4 考察完所有的边，就得到最小生成树 用并查集来判断会不会形成环 P3366 【模板】最小生成树题目描述如题，给出一个无向图，求出最小生成树，如果该图不连通，则输出 orz。 输入格式第一行包含两个整数 $N,M$，表示该图共有 $N$ 个结点和 $M$ 条无向边。 接下来 $M$ 行每行包含三个整数 $X_i,Y_i,Z_i$，表示有一条长度为 $Z_i$ 的无向边连接结点 $X_i,Y_i$。 输出格式如果该图连通，则输出一个整数表示最小生成树的各边的长度之和。如果该图不连通则输出 orz。 输入输出样例 #1输入 #11234564 51 2 21 3 21 4 32 3 43 4 3  输出 #117  说明&#x...</div></div></div></a><a class="pagination-related" href="/2025/09/16/062%E5%AE%BD%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86%E5%8F%8A%E5%85%B6%E6%89%A9%E5%B1%95/" title="062宽度优先遍历及其扩展"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-16</div><div class="info-item-2">062宽度优先遍历及其扩展</div></div><div class="info-2"><div class="info-item-1">bfs的特点是逐层扩散，从源头点到目标点扩散了几层，最短路就是多少bfs可以使用的特征是 任意两个节点之间的相互距离相同(无向图)bfs开始时，可以是单源也可以是多个源头bfs频繁使用队列，形式可以是单点弹出或者整层弹出bfs进行时，进入队列的节点要标记状态，防止同一个节点重复进出队列bfs进行时，可能会包含剪纸策略的设计bfs难点在于节点如何找到路，路的展开，剪枝设计 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576// 地图分析// 你现在手里有一份大小为 n x n 的 网格 grid// 上面的每个 单元格 都用 0 和 1 标记好了其中 0 代表海洋，1 代表陆地。// 请你找出一个海洋单元格，这个海洋单元格到离它最近的陆地单元格的距离是最大的// 并返回该距离。如果网格上只有陆地或者海洋，请返回 -1。// 我们这里说的距离是「曼哈顿...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/liang.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">yzr</div><div class="author-info-description">言和和和的个人博客</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/suif11"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/suif11" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/22/068%E6%9B%B4%E5%A4%9A%E7%9A%84%E4%BA%8C%E7%BB%B4%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E9%A2%98%E7%9B%AE/" title="068更多的二维动态规划题目">068更多的二维动态规划题目</a><time datetime="2025-09-22T06:51:27.000Z" title="发表于 2025-09-22 14:51:27">2025-09-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/18/067%E4%BB%8E%E9%80%92%E5%BD%92%E5%85%A5%E6%89%8B%E4%BA%8C%E7%BB%B4%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="067从递归入手二维动态规划">067从递归入手二维动态规划</a><time datetime="2025-09-18T06:33:14.000Z" title="发表于 2025-09-18 14:33:14">2025-09-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/16/062%E5%AE%BD%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86%E5%8F%8A%E5%85%B6%E6%89%A9%E5%B1%95/" title="062宽度优先遍历及其扩展">062宽度优先遍历及其扩展</a><time datetime="2025-09-16T04:32:01.000Z" title="发表于 2025-09-16 12:32:01">2025-09-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/16/066%E4%BB%8E%E9%80%92%E5%BD%92%E5%85%A5%E6%89%8B%E4%B8%80%E7%BB%B4%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="066从递归入手一维动态规划">066从递归入手一维动态规划</a><time datetime="2025-09-16T04:26:50.000Z" title="发表于 2025-09-16 12:26:50">2025-09-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/16/1-2-2%E5%90%84%E4%B8%AA%E7%A1%AC%E4%BB%B6%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" title="1.2.2各个硬件的工作原理">1.2.2各个硬件的工作原理</a><time datetime="2025-09-16T02:39:19.000Z" title="发表于 2025-09-16 10:39:19">2025-09-16</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By yzr</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  let initFn = window.walineFn || null
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const destroyWaline = ele => ele.destroy()
+
+  const initWaline = (Fn, el = document, path = window.location.pathname) => {
+    const waline = Fn({
+      el: el.querySelector('#waline-wrap'),
+      serverURL: 'https://suif11-github-io.vercel.app/',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      comment: false,
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyWaline = () => {
+        destroyWaline(waline)
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const loadWaline = (el, path) => {
+    if (initFn) initWaline(initFn, el, path)
+    else {
+      btf.getCSS('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css')
+        .then(() => import('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js'))
+        .then(({ init }) => {
+          initFn = init || Waline.init
+          initWaline(initFn, el, path)
+          window.walineFn = initFn
+        })
+    }
+  }
+
+  if (isShuoshuo) {
+    'Waline' === 'Waline'
+      ? window.shuoshuoComment = { loadComment: loadWaline } 
+      : window.loadOtherComment = loadWaline
+    return
+  }
+
+  if ('Waline' === 'Waline' || !false) {
+    if (false) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+    else setTimeout(loadWaline, 0)
+  } else {
+    window.loadOtherComment = loadWaline
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
