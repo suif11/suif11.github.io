@@ -1,0 +1,228 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>078树型dp | 言和和和</title><meta name="author" content="yzr"><meta name="copyright" content="yzr"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="树头结点没有父亲 其他节点只有一个父亲的有向无环图，直观理解为发散状在树上，从头结点出发到任何节点的路径是唯一的，不管是二叉树还是多叉树 树型dp是指在树上做动态规划，依赖关系比一般的动态规划简单因为绝大部分都是父依赖子 套路1 分析父树得到答案需要子树的哪些信息2 把子树信息的全集定义成递归返回值3 通过递归让子树返回全集信息4 整合子树的全集信息得到父树的全集信息并且返回 题目一 123456">
+<meta property="og:type" content="article">
+<meta property="og:title" content="078树型dp">
+<meta property="og:url" content="http://example.com/2025/10/02/078%E6%A0%91%E5%9E%8Bdp/index.html">
+<meta property="og:site_name" content="言和和和">
+<meta property="og:description" content="树头结点没有父亲 其他节点只有一个父亲的有向无环图，直观理解为发散状在树上，从头结点出发到任何节点的路径是唯一的，不管是二叉树还是多叉树 树型dp是指在树上做动态规划，依赖关系比一般的动态规划简单因为绝大部分都是父依赖子 套路1 分析父树得到答案需要子树的哪些信息2 把子树信息的全集定义成递归返回值3 通过递归让子树返回全集信息4 整合子树的全集信息得到父树的全集信息并且返回 题目一 123456">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/liang.jpg">
+<meta property="article:published_time" content="2025-10-02T03:25:43.000Z">
+<meta property="article:modified_time" content="2025-10-02T05:05:58.315Z">
+<meta property="article:author" content="yzr">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="原创">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/liang.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "078树型dp",
+  "url": "http://example.com/2025/10/02/078%E6%A0%91%E5%9E%8Bdp/",
+  "image": "http://example.com/img/liang.jpg",
+  "datePublished": "2025-10-02T03:25:43.000Z",
+  "dateModified": "2025-10-02T05:05:58.315Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "yzr",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/10/02/078%E6%A0%91%E5%9E%8Bdp/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '078树型dp',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">言和和和</span></a><a class="nav-page-title" href="/"><span class="site-name">078树型dp</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">078树型dp</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-02T03:25:43.000Z" title="发表于 2025-10-02 11:25:43">2025-10-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-02T05:05:58.315Z" title="更新于 2025-10-02 13:05:58">2025-10-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/%E5%B7%A6%E7%A8%8B%E4%BA%91/">左程云</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>树<br>头结点没有父亲 其他节点只有一个父亲的有向无环图，直观理解为发散状<br>在树上，从头结点出发到任何节点的路径是唯一的，不管是二叉树还是多叉树</p>
+<p>树型dp是指在树上做动态规划，依赖关系比一般的动态规划简单<br>因为绝大部分都是父依赖子</p>
+<p>套路<br>1 分析父树得到答案需要子树的哪些信息<br>2 把子树信息的全集定义成递归返回值<br>3 通过递归让子树返回全集信息<br>4 整合子树的全集信息得到父树的全集信息并且返回</p>
+<p>题目一</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 最大BST子树</span></span><br><span class="line"><span class="comment">// 给定一个二叉树，找到其中最大的二叉搜索树（BST）子树，并返回该子树的大小</span></span><br><span class="line"><span class="comment">// 其中，最大指的是子树节点数最多的</span></span><br><span class="line"><span class="comment">// 二叉搜索树（BST）中的所有节点都具备以下属性：</span></span><br><span class="line"><span class="comment">// 左子树的值小于其父（根）节点的值</span></span><br><span class="line"><span class="comment">// 右子树的值大于其父（根）节点的值</span></span><br><span class="line"><span class="comment">// 注意：子树必须包含其所有后代</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">largestBSTSubtree</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> f(root).maxBstSize;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Info</span> &#123;</span><br><span class="line">		<span class="keyword">public</span> <span class="type">long</span> max;</span><br><span class="line">		<span class="keyword">public</span> <span class="type">long</span> min;</span><br><span class="line">		<span class="keyword">public</span> <span class="type">boolean</span> isBst;</span><br><span class="line">		<span class="keyword">public</span> <span class="type">int</span> maxBstSize;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">public</span> <span class="title function_">Info</span><span class="params">(<span class="type">long</span> a, <span class="type">long</span> b, <span class="type">boolean</span> c, <span class="type">int</span> d)</span> &#123;</span><br><span class="line">			max = a;</span><br><span class="line">			min = b;</span><br><span class="line">			isBst = c;</span><br><span class="line">			maxBstSize = d;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Info <span class="title function_">f</span><span class="params">(TreeNode x)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (x == <span class="literal">null</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Info</span>(Long.MIN_VALUE, Long.MAX_VALUE, <span class="literal">true</span>, <span class="number">0</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="type">Info</span> <span class="variable">infol</span> <span class="operator">=</span> f(x.left);</span><br><span class="line">		<span class="type">Info</span> <span class="variable">infor</span> <span class="operator">=</span> f(x.right);</span><br><span class="line">		<span class="comment">// 左 4信息</span></span><br><span class="line">		<span class="comment">// 右 4信息</span></span><br><span class="line">		<span class="comment">// x 整合出4信息返回</span></span><br><span class="line">		<span class="type">long</span> <span class="variable">max</span> <span class="operator">=</span> Math.max(x.val, Math.max(infol.max, infor.max));</span><br><span class="line">		<span class="type">long</span> <span class="variable">min</span> <span class="operator">=</span> Math.min(x.val, Math.min(infol.min, infor.min));</span><br><span class="line">		<span class="type">boolean</span> <span class="variable">isBst</span> <span class="operator">=</span> infol.isBst &amp;&amp; infor.isBst &amp;&amp; infol.max &lt; x.val &amp;&amp; x.val &lt; infor.min;</span><br><span class="line">		<span class="type">int</span> maxBSTSize;</span><br><span class="line">		<span class="keyword">if</span> (isBst) &#123;</span><br><span class="line">			maxBSTSize = infol.maxBstSize + infor.maxBstSize + <span class="number">1</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			maxBSTSize = Math.max(infol.maxBstSize, infor.maxBstSize);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Info</span>(max, min, isBst, maxBSTSize);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>题目二</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 二叉搜索子树的最大键值和</span></span><br><span class="line"><span class="comment">// 给你一棵以 root 为根的二叉树</span></span><br><span class="line"><span class="comment">// 请你返回 任意 二叉搜索子树的最大键值和</span></span><br><span class="line"><span class="comment">// 测试链接 : https://leetcode.cn/problems/maximum-sum-bst-in-binary-tree/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">maxSumBST</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> f(root).maxBstSum;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Info</span> &#123;</span><br><span class="line">		<span class="comment">// 为什么这里的max和min是int类型？</span></span><br><span class="line">		<span class="comment">// 因为题目的数据量规定，</span></span><br><span class="line">		<span class="comment">// 节点值在[-4 * 10^4，4 * 10^4]范围</span></span><br><span class="line">		<span class="comment">// 所以int类型的最小值和最大值就够用了</span></span><br><span class="line">		<span class="comment">// 不需要用long类型</span></span><br><span class="line">		<span class="keyword">public</span> <span class="type">int</span> max;</span><br><span class="line">		<span class="keyword">public</span> <span class="type">int</span> min;</span><br><span class="line">		<span class="keyword">public</span> <span class="type">int</span> sum;</span><br><span class="line">		<span class="keyword">public</span> <span class="type">boolean</span> isBst;</span><br><span class="line">		<span class="keyword">public</span> <span class="type">int</span> maxBstSum;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">public</span> <span class="title function_">Info</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, <span class="type">int</span> c, <span class="type">boolean</span> d, <span class="type">int</span> e)</span> &#123;</span><br><span class="line">			max = a;</span><br><span class="line">			min = b;</span><br><span class="line">			sum = c;</span><br><span class="line">			isBst = d;</span><br><span class="line">			maxBstSum = e;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Info <span class="title function_">f</span><span class="params">(TreeNode x)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (x == <span class="literal">null</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Info</span>(Integer.MIN_VALUE, Integer.MAX_VALUE, <span class="number">0</span>, <span class="literal">true</span>, <span class="number">0</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="type">Info</span> <span class="variable">infol</span> <span class="operator">=</span> f(x.left);</span><br><span class="line">		<span class="type">Info</span> <span class="variable">infor</span> <span class="operator">=</span> f(x.right);</span><br><span class="line">		<span class="type">int</span> <span class="variable">max</span> <span class="operator">=</span> Math.max(x.val, Math.max(infol.max, infor.max));</span><br><span class="line">		<span class="type">int</span> <span class="variable">min</span> <span class="operator">=</span> Math.min(x.val, Math.min(infol.min, infor.min));</span><br><span class="line">		<span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> infol.sum + infor.sum + x.val;</span><br><span class="line">		<span class="type">boolean</span> <span class="variable">isBst</span> <span class="operator">=</span> infol.isBst &amp;&amp; infor.isBst &amp;&amp; infol.max &lt; x.val &amp;&amp; x.val &lt; infor.min;</span><br><span class="line">		<span class="type">int</span> <span class="variable">maxBstSum</span> <span class="operator">=</span> Math.max(infol.maxBstSum, infor.maxBstSum);</span><br><span class="line">		<span class="keyword">if</span> (isBst) &#123;</span><br><span class="line">			maxBstSum = Math.max(maxBstSum, sum);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Info</span>(max, min, sum, isBst, maxBstSum);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>题目三</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 二叉树的直径</span></span><br><span class="line"><span class="comment">// 给你一棵二叉树的根节点，返回该树的直径</span></span><br><span class="line"><span class="comment">// 二叉树的 直径 是指树中任意两个节点之间最长路径的长度</span></span><br><span class="line"><span class="comment">// 这条路径可能经过也可能不经过根节点 root</span></span><br><span class="line"><span class="comment">// 两节点之间路径的 长度 由它们之间边数表示</span></span><br><span class="line"><span class="comment">// 测试链接 : https://leetcode.cn/problems/diameter-of-binary-tree/</span></span><br><span class="line"><span class="comment">// 提交如下的方法</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">diameterOfBinaryTree</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> f(root).diameter;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Info</span> &#123;</span><br><span class="line">		<span class="keyword">public</span> <span class="type">int</span> diameter;</span><br><span class="line">		<span class="keyword">public</span> <span class="type">int</span> height;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">public</span> <span class="title function_">Info</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> &#123;</span><br><span class="line">			diameter = a;</span><br><span class="line">			height = b;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Info <span class="title function_">f</span><span class="params">(TreeNode x)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (x == <span class="literal">null</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Info</span>(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="type">Info</span> <span class="variable">leftInfo</span> <span class="operator">=</span> f(x.left);</span><br><span class="line">		<span class="type">Info</span> <span class="variable">rightInfo</span> <span class="operator">=</span> f(x.right);</span><br><span class="line">		<span class="type">int</span> <span class="variable">height</span> <span class="operator">=</span> Math.max(leftInfo.height, rightInfo.height) + <span class="number">1</span>;</span><br><span class="line">		<span class="type">int</span> <span class="variable">diameter</span> <span class="operator">=</span> Math.max(leftInfo.diameter, rightInfo.diameter);</span><br><span class="line">		diameter = Math.max(diameter, leftInfo.height + rightInfo.height);</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Info</span>(diameter, height);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>题目四</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">distributeCoins</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> f(root).move;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Info</span> &#123;</span><br><span class="line">		<span class="keyword">public</span> <span class="type">int</span> cnt;</span><br><span class="line">		<span class="keyword">public</span> <span class="type">int</span> sum;</span><br><span class="line">		<span class="keyword">public</span> <span class="type">int</span> move;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">public</span> <span class="title function_">Info</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, <span class="type">int</span> c)</span> &#123;</span><br><span class="line">			cnt = a;</span><br><span class="line">			sum = b;</span><br><span class="line">			move = c;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Info <span class="title function_">f</span><span class="params">(TreeNode x)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (x == <span class="literal">null</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Info</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="type">Info</span> <span class="variable">infol</span> <span class="operator">=</span> f(x.left);</span><br><span class="line">		<span class="type">Info</span> <span class="variable">infor</span> <span class="operator">=</span> f(x.right);</span><br><span class="line">		<span class="type">int</span> <span class="variable">cnts</span> <span class="operator">=</span> infol.cnt + infor.cnt + <span class="number">1</span>;</span><br><span class="line">		<span class="type">int</span> <span class="variable">sums</span> <span class="operator">=</span> infol.sum + infor.sum + x.val;</span><br><span class="line">		<span class="type">int</span> <span class="variable">moves</span> <span class="operator">=</span> infol.move + infor.move + Math.abs(infol.cnt - infol.sum) + Math.abs(infor.cnt - infor.sum);</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Info</span>(cnts, sums, moves);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">yzr</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/10/02/078%E6%A0%91%E5%9E%8Bdp/">http://example.com/2025/10/02/078%E6%A0%91%E5%9E%8Bdp/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">言和和和</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a><a class="post-meta__tags" href="/tags/%E5%8E%9F%E5%88%9B/">原创</a></div><div class="post-share"><div class="social-share" data-image="/img/liang.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width no-desc" href="/2025/10/01/%E8%B4%AA%E5%BF%83%E7%BB%8F%E5%85%B8%E9%A2%98%E7%9B%AE%E4%B8%93%E9%A2%981/" title="贪心经典题目专题1"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">贪心经典题目专题1</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/09/15/056%E5%B9%B6%E6%9F%A5%E9%9B%86/" title="056并查集"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-15</div><div class="info-item-2">056并查集</div></div><div class="info-2"><div class="info-item-1">1.一开始元素拥有自己的集合，在自己的集合里只有这个元素自己2.find(i):查找i所在集合的代表元素，代表元素来代表i所在的集合3.boolean isSameSet(a,b):判断a,b在不在一个集合里4.void union(a,b):a所在集合所有元素和b所在集合所有元素 合并成一个集合5.各种操作单次调用的均摊时间复杂度O(1) find一直往上找 一直找到不能再往上的优化一 union小的去挂大的优化二 扁平化(路径压缩)比如说 2-3 3-4 4-5find(2)的时候 在找父节点的过程中  我们把沿途的都给直接挂到5那越调用速度越快，挺好 father 和 size的改变只有代表节点的size信息有用  也就是最上方的节点对吧father指向父节点 import java.io.*;  public class Main &#123;     // n 和 m 为题目给定的总数和操作数     static int n, m;     // father[i] 存储 i 的父节点     static int[] father;     // size[i] 存...</div></div></div></a><a class="pagination-related" href="/2025/09/14/025%E5%A0%86%E7%BB%93%E6%9E%84%E5%92%8C%E5%A0%86%E6%8E%92%E5%BA%8F/" title="025堆结构和堆排序"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-14</div><div class="info-item-2">025堆结构和堆排序</div></div><div class="info-2"><div class="info-item-1">堆（Heap）是什么？堆是一种特殊的完全二叉树，它满足以下两个关键性质： 结构性：它必须是一棵完全二叉树，这意味着除了最后一层，其他所有层都是完全满的，并且最后一层的节点都靠左排列。这种结构使得它可以用一个简单的数组来高效存储。堆序性：每个节点的值都必须满足特定的关系。大顶堆（Max-Heap）：每个父节点的值都大于或等于其子节点的值。小顶堆（Min-Heap）：每个父节点的值都小于或等于其子节点的值。 在数组中，如果节点从索引 1 开始，那么父子关系可以通过简单的公式计算： 父节点：i&#x2F;2左孩子：2i右孩子：2i+1 时间复杂度Onlogn  用常量增倍法把n个数建立堆 上限是n个数依次进入 第n个高度logn 所以上限nlogn假设2n个数 是否以这个做下限  后n个数高度大于logn 为什么是上限也是下限 说明只能是它 输出前m个小的数 import java.util.Scanner;  public class Main &#123;     // N: 堆的最大容量     // h: 存储堆元素的数组，索引从1开始     // size: 堆中当前元素的...</div></div></div></a><a class="pagination-related" href="/2025/09/14/019%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%9A%84%E5%A4%84%E7%90%86/" title="左程云019输入输出的处理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-14</div><div class="info-item-2">左程云019输入输出的处理</div></div><div class="info-2"><div class="info-item-1">ACM 风格的 I&#x2F;O 与内存管理在算法竞赛（ACM）中，程序的执行效率至关重要。除了算法复杂度，I&#x2F;O 和内存管理的开销也对性能有着决定性的影响。ACM 风格的编程追求极致的效率，其核心在于 I&#x2F;O 缓冲 和 静态内存分配。  高效 I&#x2F;O：BufferedReader 与 Scanner 的对比在 Java 中，Scanner 类提供了一个便利的接口，但其内部实现涉及频繁的底层 I&#x2F;O 操作。每次调用 Scanner.nextInt() 或 Scanner.next()，都可能触发一次对系统 I&#x2F;O 流的访问，这带来了显著的性能开销。  相比之下，BufferedReader 采用了一种缓冲机制来优化 I&#x2F;O 性能。它在内存中维护一个缓冲区（默认大小为 8KB），并一次性从底层数据源（如 System.in）读取一大块数据。后续的读取请求都在这个内存缓冲区内完成，从而显著减少了对底层 I&#x2F;O 设备的访问次数。 同样，为了优化输出，ACM 风格的程序会使用 PrintWriter 或 Buffere...</div></div></div></a><a class="pagination-related" href="/2025/09/14/059%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" title="059拓扑排序"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-14</div><div class="info-item-2">059拓扑排序</div></div><div class="info-2"><div class="info-item-1"> 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768import java.util.ArrayList;class Solution &#123;/*** 找到所有课程的正确学习顺序。* 这个问题可以建模为一个有向无环图（DAG）的拓扑排序问题。** @param numCourses 课程总数* @param prerequisites 先决条件数组，prerequisites[i] = [ai, bi] 表示学习课程 ai 之前必须先学习课程 bi* @return 课程的有效学习顺序，如果不存在（图中存在环），则返回一个空数组*/public int[] findOrder(int numCourses, int[][] prerequisites) &#123;// 1. 建立邻接表（图）和入度表ArrayList&lt;ArrayList&lt;Integer&gt;...</div></div></div></a><a class="pagination-related" href="/2025/09/15/061%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" title="061最小生成树"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-15</div><div class="info-item-2">061最小生成树</div></div><div class="info-2"><div class="info-item-1">最小生成树:在 无向带权图 中选择一些边，在保证连通性的情况下，边的总权值最小最小生成树可能不只一棵，只要保证边的总权值最小，就是正确的最小生成树。如果无向带权图有n个点，那么最小生成树一定有n-1条边 Kruskal算法(最常用)1 把所有的边，根据权值从小到大排序，从权值小的边开始考虑2 如果连接当前的边不会形成环，就选择3 如果连接当前的边会形成环，就不选4 考察完所有的边，就得到最小生成树 用并查集来判断会不会形成环 P3366 【模板】最小生成树题目描述如题，给出一个无向图，求出最小生成树，如果该图不连通，则输出 orz。 输入格式第一行包含两个整数 $N,M$，表示该图共有 $N$ 个结点和 $M$ 条无向边。 接下来 $M$ 行每行包含三个整数 $X_i,Y_i,Z_i$，表示有一条长度为 $Z_i$ 的无向边连接结点 $X_i,Y_i$。 输出格式如果该图连通，则输出一个整数表示最小生成树的各边的长度之和。如果该图不连通则输出 orz。 输入输出样例 #1输入 #11234564 51 2 21 3 21 4 32 3 43 4 3  输出 #117  说明&#x...</div></div></div></a><a class="pagination-related" href="/2025/09/15/064Dijkstra%E7%AE%97%E6%B3%95/" title="064Dijkstra算法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-15</div><div class="info-item-2">064Dijkstra算法</div></div><div class="info-2"><div class="info-item-1">Dijkstra 算法概述Dijkstra 算法的核心思想是一种贪心策略。它从一个起始节点开始，逐步向外扩展，每次都选择离起点最近且未被访问过的节点，并用该节点来更新其所有邻居节点到起点的最短距离。 这个过程可以形象地理解为，从起点向四周铺设一条条路径，每次都优先铺设最短的那条，直到所有可达的节点都被铺设完毕。 算法步骤1.dist[i]表示从源点到i的最短距离，visited[i]表示i节点是否从小根堆弹出过2.准备好小根堆，小根堆存放记录：(x点，x到源点距离)，小根堆根据距离组织3.令dist[源点]&#x3D;0，(源点，0)进入小根堆4.从小根堆弹出(u,源点到u的距离)    a.如果visited[u]&#x3D;&#x3D;true ,不做任何处理，重复步骤4    b.如果visited[u]&#x3D;&#x3D;false,令为true，u也算弹出过了    然后考察u的每一条边，假设某边去v，边权w    1)如果visited[v]&#x3D;&#x3D;false 并且dist[u]+w &lt;dist[v]    令dist[v] &#x3D; d...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/liang.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">yzr</div><div class="author-info-description">言和和和的个人博客</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/suif11"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/suif11" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/02/078%E6%A0%91%E5%9E%8Bdp/" title="078树型dp">078树型dp</a><time datetime="2025-10-02T03:25:43.000Z" title="发表于 2025-10-02 11:25:43">2025-10-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/01/%E8%B4%AA%E5%BF%83%E7%BB%8F%E5%85%B8%E9%A2%98%E7%9B%AE%E4%B8%93%E9%A2%981/" title="贪心经典题目专题1">贪心经典题目专题1</a><time datetime="2025-09-30T16:07:54.000Z" title="发表于 2025-10-01 00:07:54">2025-10-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/25/076%E5%8C%BA%E9%97%B4dp-%E4%B8%8A/" title="076区间dp-上">076区间dp-上</a><time datetime="2025-09-25T04:41:47.000Z" title="发表于 2025-09-25 12:41:47">2025-09-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/25/075%E8%83%8C%E5%8C%85dp%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85%E6%B7%B7%E5%90%88%E8%83%8C%E5%8C%85/" title="075背包dp多重背包混合背包">075背包dp多重背包混合背包</a><time datetime="2025-09-25T04:39:28.000Z" title="发表于 2025-09-25 12:39:28">2025-09-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/25/074%E8%83%8C%E5%8C%85dp-%E5%88%86%E7%BB%84%E8%83%8C%E5%8C%85%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85/" title="074背包dp-分组背包完全背包">074背包dp-分组背包完全背包</a><time datetime="2025-09-25T04:33:45.000Z" title="发表于 2025-09-25 12:33:45">2025-09-25</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By yzr</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  let initFn = window.walineFn || null
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const destroyWaline = ele => ele.destroy()
+
+  const initWaline = (Fn, el = document, path = window.location.pathname) => {
+    const waline = Fn({
+      el: el.querySelector('#waline-wrap'),
+      serverURL: 'https://suif11-github-io.vercel.app/',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      comment: false,
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyWaline = () => {
+        destroyWaline(waline)
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const loadWaline = (el, path) => {
+    if (initFn) initWaline(initFn, el, path)
+    else {
+      btf.getCSS('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css')
+        .then(() => import('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js'))
+        .then(({ init }) => {
+          initFn = init || Waline.init
+          initWaline(initFn, el, path)
+          window.walineFn = initFn
+        })
+    }
+  }
+
+  if (isShuoshuo) {
+    'Waline' === 'Waline'
+      ? window.shuoshuoComment = { loadComment: loadWaline } 
+      : window.loadOtherComment = loadWaline
+    return
+  }
+
+  if ('Waline' === 'Waline' || !false) {
+    if (false) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+    else setTimeout(loadWaline, 0)
+  } else {
+    window.loadOtherComment = loadWaline
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
